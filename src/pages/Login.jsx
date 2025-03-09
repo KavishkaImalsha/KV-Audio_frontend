@@ -1,7 +1,38 @@
 import { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import axios from "axios"
+import { toast } from "react-hot-toast"
 
 const Login = () => {
+    const [userData, setUserData] = useState({email: "", password: ""})
+    const navigate = useNavigate()
+
+    const handleInputData = (event) => {
+        setUserData((prevState) => ({
+            ...prevState,
+            [event.target.name] : event.target.value
+        }))  
+    }
+
+    const submitCredetials = async(event) => {
+        event.preventDefault()
+        await axios.post('http://localhost:3000/api/user/login', userData).then(
+            (response) => {
+                const user = response.data.user
+                
+                if(user.role === 'admin'){
+                    toast.success('Login Successful')
+                    navigate('/admin')
+                }else{
+                    navigate('/')
+                }
+                
+            }
+        ).catch((error) => {
+            toast.error(error.response.data.message)
+        })
+        
+    }
 
     return(
     <>
@@ -17,18 +48,22 @@ const Login = () => {
                 </div>
                 <h1 className="font-medium text-center"><span className="font-bold text-3xl text-blue-600">Login</span> to your account.</h1>
                 
-                <form class="max-w-sm mx-auto p-5">
-                    <div class="mb-5">
-                        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                        <input type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="name@example.com" required />
+                <form className="max-w-sm mx-auto p-5"
+                    onSubmit={(event) => {submitCredetials(event)}}
+                >
+                    <div className="mb-5">
+                        <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                        <input type="email" name="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="name@example.com" required 
+                        onChange={(event) => {handleInputData(event)}}/>
                     </div>
-                    <div class="mb-5">
-                        <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">password</label>
-                        <input type="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="*********" required />
+                    <div className="mb-5">
+                        <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">password</label>
+                        <input type="password" name="password" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="*********" required 
+                        onChange={(event) => {handleInputData(event)}}/>
                     </div>
-                    <div class="flex justify-between items-center">
+                    <div className="flex justify-between items-center">
                         <Link className="text-sm font-medium text-gray-500 hover:text-blue-600">Forget password?</Link>
-                        <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-[150px] px-5 py-2.5 text-center translate-x-[-20px] hover:cursor-pointer">Login</button>
+                        <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-[150px] px-5 py-2.5 text-center translate-x-[-20px] hover:cursor-pointer">Login</button>
                     </div>
                 </form>
             </div>
