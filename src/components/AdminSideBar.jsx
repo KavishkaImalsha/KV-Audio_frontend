@@ -8,7 +8,7 @@ import { PiUsersThreeFill } from "react-icons/pi"
 const AdminSideBar = () => {
     return(
         <>
-            <div id="default-sidebar" className="w-[250px] h-screen" aria-label="Sidebar">
+            <div id="default-sidebar" className="w-[250px]" aria-label="Sidebar">
                 <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
                     <ul className="space-y-2 font-medium">
                         <li>
