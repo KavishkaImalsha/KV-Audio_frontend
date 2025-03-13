@@ -14,7 +14,7 @@ const MainHome = () => {
             <div className="h-[calc(100vh - 80px)]">
                 <Routes>
                     <Route path="/" element={<Home/>}/>
-                    <Route path="/admin" element={<AdminDashboard/>}/>
+                    <Route path="/admin/*" element={<AdminDashboard/>}/>
                     <Route path="/items" element={<Items/>}/>
                     <Route path="/gallery" element={<Gallery/>}/>
                     <Route path="/contact" element={<Contact/>}/>
