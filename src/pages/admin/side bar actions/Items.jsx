@@ -5,6 +5,7 @@ import axios from "axios"
 import toast from 'react-hot-toast'
 import { useNavigate } from "react-router-dom"
 import GridLoader from "react-spinners/GridLoader"
+import Swal from 'sweetalert2'
 
 const Items = () => {
     const [isModalVisible, setIsModalVisible] = useState(false)
@@ -13,8 +14,6 @@ const Items = () => {
     const navigate = useNavigate()
     const [products, setProducts] = useState([])
     const [itemsLoading, setItemsLoading] = useState(false)
-    
-    console.log(isModalVisible);
     
     useEffect(() => {
         if(!itemsLoading){
@@ -33,6 +32,31 @@ const Items = () => {
         }).catch((error) => {
             toast.error(error.response.data.message)
         })
+    }
+
+    const deleteItem = (itemId) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+          }).then(async(result) => {
+            if (result.isConfirmed) {
+                await axios.delete(`http://localhost:3000/api/products/${itemId}`,{
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }).then((response) => {
+                    toast.success(response.data.message)
+                    setItemsLoading(false)
+                }).catch((error) => {
+                    toast.error(error.response.data.message)
+                })
+            }
+          })
     }
     
 
@@ -122,8 +146,8 @@ const Items = () => {
                                         {product.quantity}
                                     </td>
                                     <td class="px-6 py-4 text-right">
-                                        <a href="#" class="font-medium text-blue-600 hover:underline">Edit</a>|
-                                        <a href="#" class="font-medium text-red-600 hover:underline">Delete</a>
+                                        <button class="hover:cursor-pointer font-medium text-blue-600 hover:underline">Edit</button>|
+                                        <button onClick={() => {deleteItem(product._id)}} class="hover:cursor-pointer font-medium text-red-600 hover:underline">Delete</button>
                                     </td>
                                 </tr>
                             )
