@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom'
 import AdminSideBar from '../../components/AdminSideBar.jsx'
-import AdminHome from './AdminHome.jsx'
-import Items from './Items.jsx'
+import AdminHome from './side bar actions/AdminHome.jsx'
+import Items from './side bar actions/Items.jsx'
 const AdminDashboard = () => {
     return(
         <>
