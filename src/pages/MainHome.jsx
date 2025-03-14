@@ -11,7 +11,7 @@ const MainHome = () => {
     return(
         <>
             <NavBar/>
-            <div className="h-[calc(100vh - 80px)]">
+            <div className="h-[calc(100vh - 80px)] w-screen">
                 <Routes>
                     <Route path="/" element={<Home/>}/>
                     <Route path="/admin/*" element={<AdminDashboard/>}/>

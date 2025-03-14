@@ -4,10 +4,10 @@ const AddItemModel = ({showModel, setItem, submitForm}) => {
     return(
         <>
 
-        <div className="fixed right-[-30%] justify-center items-center w-full backdrop-blur-sm overflow-y-auto overflow-x-hidden max-h-[80vh]">
-            <div className="relative p-4 w-[60%]">
+        <div className="fixed right-[-20%] justify-center items-center w-full backdrop-blur-sm overflow-y-auto overflow-x-hidden max-h-[80vh]">
+            <div className="p-4 w-[60%]">
                 {/* <!-- Modal content --> */}
-                <div className="relative bg-white rounded-lg shadow-sm dark:bg-gray-700">
+                <div className=" bg-white rounded-lg shadow-sm dark:bg-gray-700">
                     {/* <!-- Modal header --> */}
                     <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200">
                         <h3 className="text-xl font-semibold text-gray-900 dark:text-white">

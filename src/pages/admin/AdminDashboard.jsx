@@ -5,9 +5,9 @@ import Items from './side bar actions/Items.jsx'
 const AdminDashboard = () => {
     return(
         <>
-          <div className='w-full h-[calc(100vh-80px)] flex'>
+          <div className='h-[calc(100vh-80px)] flex'>
             <AdminSideBar/>
-            <div className='w-[calc(100vw-250px)'>
+            <div className='w-[calc(100vw-200px)] overflow-x-hidden mx-3'>
               <Routes>
                   <Route path='/dashboard' element={<AdminHome/>}/>
                   <Route path='/items' element={<Items/>}/>
