@@ -6,6 +6,7 @@ import toast from 'react-hot-toast'
 import { useNavigate } from "react-router-dom"
 import GridLoader from "react-spinners/GridLoader"
 import Swal from 'sweetalert2'
+import BackendApi from "../../../api/BackendApi"
 
 const Items = () => {
     const [isModalVisible, setIsModalVisible] = useState(false)
@@ -22,11 +23,7 @@ const Items = () => {
     }, [itemsLoading])
 
     const fetchAllProducts = async() => {
-        await axios.get('http://localhost:3000/api/products', {
-            headers: {
-                Authorization:'Bearer ' + token
-            }
-        }).then((response) => {
+        await BackendApi.get(`/products`).then((response) => {
             setProducts(response.data)
             setItemsLoading(true)
         }).catch((error) => {
@@ -45,11 +42,7 @@ const Items = () => {
             confirmButtonText: "Yes, delete it!"
           }).then(async(result) => {
             if (result.isConfirmed) {
-                await axios.delete(`http://localhost:3000/api/products/${itemId}`,{
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                }).then((response) => {
+                await BackendApi.delete(`/products/${itemId}`).then((response) => {
                     toast.success(response.data.message)
                     setItemsLoading(false)
                 }).catch((error) => {
@@ -66,11 +59,7 @@ const Items = () => {
 
     const handelSubmit = async(event) => {
         event.preventDefault()
-        await axios.post('http://localhost:3000/api/products', itemDetails, {
-            headers: {
-                Authorization: 'Bearer ' + token
-            }
-        }).then((response) => {
+        await BackendApi.post(`/products`, itemDetails).then((response) => {
             toast.success(response.data.message)
             setIsModalVisible(false)
             setItemsLoading(false)

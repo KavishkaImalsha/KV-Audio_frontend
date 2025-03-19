@@ -3,6 +3,7 @@ import handleInputData from "../../actions/handleInputData";
 import { useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import BackendApi from "../../api/BackendApi";
 
 const UpdateItemModel = () => {
     const location = useLocation()
@@ -14,10 +15,7 @@ const UpdateItemModel = () => {
         event.preventDefault()
         
         const token = localStorage.getItem('token')
-        await axios.put(`http://localhost:3000/api/products/${editItem.productId}`, itemDetails,
-            {headers: {
-                Authorization: `Bearer ${token}`
-            }}
+        await BackendApi.put(`/products/${editItem.productId}`, itemDetails
         ).then((response) => {
             toast.success(response.data.message)
             navigate('/admin/items')
