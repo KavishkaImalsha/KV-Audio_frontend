@@ -20,7 +20,7 @@ const UpdateItemModel = () => {
             toast.success(response.data.message)
             navigate('/admin/items')
         }).catch((error) => {
-            toast.error(error.response.data.message)
+            toast.error(error?.response?.data?.message || "Error Occured")
         })
     }
     return(

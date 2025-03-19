@@ -27,7 +27,7 @@ const Items = () => {
             setProducts(response.data)
             setItemsLoading(true)
         }).catch((error) => {
-            toast.error(error.response.data.message)
+            toast.error(error?.response?.data?.message || "Error Occured")
         })
     }
 
@@ -46,7 +46,7 @@ const Items = () => {
                     toast.success(response.data.message)
                     setItemsLoading(false)
                 }).catch((error) => {
-                    toast.error(error.response.data.message)
+                    toast.error(error?.response?.data?.message || "Error Occured")
                 })
             }
           })
@@ -65,7 +65,7 @@ const Items = () => {
             setItemsLoading(false)
             navigate('/admin/items')
         }).catch((error) => {
-            toast.error(error.response.data.error)
+            toast.error(error?.response?.data?.message || "Error Occured")
         })
     }
     
