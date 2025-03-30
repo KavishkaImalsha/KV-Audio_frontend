@@ -20,6 +20,7 @@ const Items = () => {
             }
             toast.error(response.data?.message || "Internal server error")
         }).catch((error) => {
+
             toast.error(error?.response?.data?.message || "Error occured")
         }) 
     }

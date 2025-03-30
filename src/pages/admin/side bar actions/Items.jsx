@@ -7,10 +7,12 @@ import { useNavigate } from "react-router-dom"
 import GridLoader from "react-spinners/GridLoader"
 import Swal from 'sweetalert2'
 import BackendApi from "../../../api/BackendApi"
+import UploadMediaFiles from "../../../actions/UplodMediaFiles"
 
 const Items = () => {
     const [isModalVisible, setIsModalVisible] = useState(false)
     const [itemDetails, setItemDetails] = useState({productId: "", name: "", price: 0, category: "", dimension: "", discription: "", availability: "", quantity: "", image: [null]})
+    const [productImages, setProductImages] = useState([])
     const token = localStorage.getItem('token')
     const navigate = useNavigate()
     const [products, setProducts] = useState([])
@@ -55,10 +57,33 @@ const Items = () => {
     const updateItem = (product) => {
         navigate('/admin/edit-item', {state: product})
     }
+
+    const addImages = async() => {
+        const promises = []
+
+        productImages.map((productImage) => {
+            const promise = UploadMediaFiles(productImage[0])
+            promises.push(promise) 
+        })
+
+        await Promise.all(promises).then((result) => {
+            setItemDetails((prevState) => ({
+                ...prevState,
+                image : result
+            }))  
+        }).catch((error) => {
+            toast.error(error)
+        })
+        
+    }
     
 
     const handelSubmit = async(event) => {
         event.preventDefault()
+        if(productImages.length != 0){
+            addImages();
+        }
+        
         await BackendApi.post(`/products`, itemDetails).then((response) => {
             toast.success(response.data.message)
             setIsModalVisible(false)
@@ -75,7 +100,7 @@ const Items = () => {
             <button onClick={() => {setIsModalVisible(true)}}>
                 <IoAddCircleSharp className="text-7xl text-blue-600 fixed right-4 bottom-4 hover:text-blue-700 hover:cursor-pointer"/>
             </button>
-            {isModalVisible && <AddItemModel showModel={setIsModalVisible} setItem={setItemDetails} submitForm={handelSubmit}/>}
+            {isModalVisible && <AddItemModel showModel={setIsModalVisible} setItem={setItemDetails} submitForm={handelSubmit} setProductImages={setProductImages}/>}
             {itemsLoading ? (
                 <div className="shadow-md sm:rounded-lg w-full">
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
