@@ -5,6 +5,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import BackendApi from "../../api/BackendApi";
 import ImageUploadButton from "./ImageUploadButton";
+import UplodMediaFiles from "../../actions/UplodMediaFiles";
 
 const UpdateItemModel = () => {
     const location = useLocation()
@@ -17,30 +18,28 @@ const UpdateItemModel = () => {
         const promises = []
 
         productImages.map((productImage) => {
-            const promise = UploadMediaFiles(productImage[0])
+            const promise = UplodMediaFiles(productImage[0])
             promises.push(promise) 
         })
 
-        await Promise.all(promises).then((result) => {
-            setItemDetails((prevState) => ({
-                ...prevState,
-                image : result
-            }))  
-        }).catch((error) => {
+        try{
+            const result = await Promise.all(promises)
+            return result
+        }catch{(error) => {
             toast.error(error)
-        })
-        
+        }}
     }
     
     const handelSubmit = async(event) => {
         event.preventDefault()
-
+        let updateDetails = itemDetails
         if(productImages.length != 0){
-            addImages()
+            const updateImages = await addImages()
+            updateDetails.image = updateImages
         }
-
+        
         const token = localStorage.getItem('token')
-        await BackendApi.put(`/products/${editItem.productId}`, itemDetails
+        await BackendApi.put(`/products/${editItem.productId}`, updateDetails
         ).then((response) => {
             toast.success(response.data.message)
             navigate('/admin/items')
