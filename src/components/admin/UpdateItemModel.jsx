@@ -4,16 +4,41 @@ import { useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import BackendApi from "../../api/BackendApi";
+import ImageUploadButton from "./ImageUploadButton";
 
 const UpdateItemModel = () => {
     const location = useLocation()
     const navigate = useNavigate()
     const editItem = location.state
     const [itemDetails, setItemDetails] = useState({productId: editItem.productId, name: editItem.name, price: editItem.price, category: editItem.category, dimension: editItem.dimension, discription: editItem.discription, availability: editItem.availability, quantity: editItem.quantity, image: editItem.image})
+    const [productImages, setProductImages] = useState([])
+
+    const addImages = async() => {
+        const promises = []
+
+        productImages.map((productImage) => {
+            const promise = UploadMediaFiles(productImage[0])
+            promises.push(promise) 
+        })
+
+        await Promise.all(promises).then((result) => {
+            setItemDetails((prevState) => ({
+                ...prevState,
+                image : result
+            }))  
+        }).catch((error) => {
+            toast.error(error)
+        })
+        
+    }
     
     const handelSubmit = async(event) => {
         event.preventDefault()
-        
+
+        if(productImages.length != 0){
+            addImages()
+        }
+
         const token = localStorage.getItem('token')
         await BackendApi.put(`/products/${editItem.productId}`, itemDetails
         ).then((response) => {
@@ -26,7 +51,7 @@ const UpdateItemModel = () => {
     return(
         <>
             <div className="backdrop-blur-sm flex overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 max-h-full">
-            <div className="p-4 w-[60%]">
+            <div className="p-4 w-[60%] max-h-[95vh]">
                 {/* <!-- Modal content --> */}
                 <div className=" bg-white rounded-lg shadow-sm dark:bg-gray-700">
                     {/* <!-- Modal header --> */}
@@ -44,8 +69,9 @@ const UpdateItemModel = () => {
                         </button>
                     </div>
                     {/* <!-- Modal body --> */}
-                    <div className="p-4 md:p-5">
+                    <div className="p-4 md:p-5 max-h-[80vh] overflow-y-auto">
                         <form className="space-y-4" onSubmit={(event) => {handelSubmit(event)}}>
+                            <ImageUploadButton setProductImages={setProductImages}/>
                             <div className="grid grid-cols-3 gap-5">
                                 <div className="mb-3">
                                     <label htmlFor="productId" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product Id<span className="text-red-500">*</span></label>
