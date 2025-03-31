@@ -1,13 +1,13 @@
-const ProductCard = ({products}) => {
-    console.log(products);
-    
+const ProductCard = ({products}) => {   
     return(
         products.map((product, index) => {
+            console.log(product.image);
+            
             return(<div key={index} className="w-full h-[420px] max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
             <a href="#">
             <img
                 className="rounded-t-lg h-[250px] m-auto"
-                src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aGVhZHBob25lfGVufDB8fDB8fHww"
+                src={product.image}
                 alt="product image"
             />
             </a>

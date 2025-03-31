@@ -81,7 +81,7 @@ const Items = () => {
     const handelSubmit = async(event) => {
         event.preventDefault()
         if(productImages.length != 0){
-            addImages()
+            await addImages()
         }
         
         await BackendApi.post(`/products`, itemDetails).then((response) => {
