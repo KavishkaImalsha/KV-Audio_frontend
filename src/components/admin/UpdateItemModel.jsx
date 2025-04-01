@@ -13,17 +13,29 @@ const UpdateItemModel = () => {
     const editItem = location.state
     const [itemDetails, setItemDetails] = useState({productId: editItem.productId, name: editItem.name, price: editItem.price, category: editItem.category, dimension: editItem.dimension, discription: editItem.discription, availability: editItem.availability, quantity: editItem.quantity, image: editItem.image})
     const [productImages, setProductImages] = useState([])
+    
 
     const addImages = async() => {
+        let counter = 0;
         const promises = []
 
-        productImages.map((productImage) => {
-            const promise = UplodMediaFiles(productImage[0])
-            promises.push(promise) 
+        productImages.map((productImageFiles) => {
+            Array.from(productImageFiles).map((file) => {
+                if(counter > 5){
+                    toast.error("Maximum 5 images only")
+                    counter = 0
+                    return
+                }
+                const promise = UplodMediaFiles(file)
+                promises.push(promise)
+                counter++;
+            })
         })
+        
 
         try{
             const result = await Promise.all(promises)
+            counter = 0
             return result
         }catch{(error) => {
             toast.error(error)
@@ -35,7 +47,7 @@ const UpdateItemModel = () => {
         let updateDetails = itemDetails
         if(productImages.length != 0){
             const updateImages = await addImages()
-            updateDetails.image = updateImages
+            updateDetails.image = itemDetails.image ? [...itemDetails.image, ...updateImages] : updateImages
         }
         
         const token = localStorage.getItem('token')

@@ -30,7 +30,7 @@ const Items = () => {
         {loading ? (<div className="flex justify-center items-center"><GridLoader color="#2563eb" /></div>) : (
             <div className="w-full overflow-hidden">
             <div className="bg-[url('item-page-banner-image.jpeg')] bg-no-repeat bg-cover bg-center h-[400px]"></div>
-            <div className="bg-gray-300 rounded-sm border-gray-500 max-w-[90%] mx-auto grid grid-cols-3 gap-y-3 p-3">
+            <div className="bg-gray-300 rounded-sm border-gray-500 max-w-[90%] mx-auto grid grid-cols-3 gap-y-3 p-3 gap-5">
                     <ProductCard products={products}/>
             </div>
         </div>

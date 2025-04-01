@@ -11,7 +11,7 @@ import UploadMediaFiles from "../../../actions/UplodMediaFiles"
 
 const Items = () => {
     const [isModalVisible, setIsModalVisible] = useState(false)
-    const [itemDetails, setItemDetails] = useState({productId: "", name: "", price: 0, category: "", dimension: "", discription: "", availability: "", quantity: "", image: [null]})
+    const [itemDetails, setItemDetails] = useState({productId: "", name: "", price: 0, category: "", dimension: "", discription: "", availability: "", quantity: "", image: []})
     const [productImages, setProductImages] = useState([])
     const token = localStorage.getItem('token')
     const navigate = useNavigate()
