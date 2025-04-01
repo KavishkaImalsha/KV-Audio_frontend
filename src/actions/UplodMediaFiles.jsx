@@ -1,6 +1,7 @@
 import supabase from "../connections/supabase"
 const UplodMediaFiles = (file) => {
     return new Promise((resolve, reject) => {
+
         if(!file){
             reject("File is not selected")
         }
@@ -16,8 +17,6 @@ const UplodMediaFiles = (file) => {
             const public_url = supabase.storage.from('images').getPublicUrl(fileName).data.publicUrl
             resolve(public_url)
         }).catch((error) => {
-            console.log(error);
-            
             reject("File is not uploded")
         })
     })

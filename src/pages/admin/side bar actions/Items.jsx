@@ -59,18 +59,28 @@ const Items = () => {
     }
 
     const addImages = async() => {
+        let counter = 0;
         const promises = []
 
-        productImages.map((productImage) => {
-            const promise = UploadMediaFiles(productImage[0])
-            promises.push(promise) 
+        productImages.map((productImageFiles) => {
+            Array.from(productImageFiles).map((file) => {
+                if(counter > 5){
+                    toast.error("Maximum 5 images only")
+                    counter = 0
+                    return
+                }
+                const promise = UploadMediaFiles(file)
+                promises.push(promise)
+                counter++;
+            })
         })
-
+        
         await Promise.all(promises).then((result) => {
             setItemDetails((prevState) => ({
                 ...prevState,
                 image : result
-            }))  
+            }))
+            counter = 0
         }).catch((error) => {
             toast.error(error)
         })
@@ -80,8 +90,14 @@ const Items = () => {
 
     const handelSubmit = async(event) => {
         event.preventDefault()
+        
         if(productImages.length != 0){
+            if(productImages.length > 5){
+                toast.error("Maximum 5 images only")
+                return
+            }
             await addImages()
+            setProductImages([])
         }
         
         await BackendApi.post(`/products`, itemDetails).then((response) => {
