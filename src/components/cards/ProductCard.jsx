@@ -1,13 +1,12 @@
-const ProductCard = ({products}) => {   
+const ProductCard = ({products, setIsVisible, setSelectedItemId}) => {
     return(
         products.map((product, index) => {
-            console.log(product.image);
-            
-            return(<div key={index} className="w-full h-[420px] max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+            return(
+            <div key={index} className="w-full h-[420px] max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
             <a href="#">
             <img
                 className="rounded-t-lg h-[250px] m-auto"
-                src={product.image}
+                src={product.image[0]}
                 alt="product image"
             />
             </a>
@@ -29,7 +28,11 @@ const ProductCard = ({products}) => {
                 </div>
             </div>
             <div className="flex justify-center items-center my-3">
-            <button type="button" class="cursor-pointer text-white bg-blue-700 w-[200px] hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center">View Item</button>
+            <button
+                onClick={() => {
+                    setSelectedItemId(product._id)
+                    setIsVisible(true)}}
+             type="button" class="cursor-pointer text-white bg-blue-700 w-[200px] hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center">View Item</button>
             </div>
         </div>
       </div>)
