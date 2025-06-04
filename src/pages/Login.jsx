@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom"
 import axios from "axios"
 import { toast } from "react-hot-toast"
 import handleInputData from "../actions/handleInputData"
-import BackendApi from "../api/BackendApi"
 
 const Login = () => {
     const [userData, setUserData] = useState({email: "", password: ""})
@@ -12,7 +11,7 @@ const Login = () => {
 
     const submitCredetials = async(event) => {
         event.preventDefault()
-        await BackendApi.post(`/user/login`, userData).then(
+        await axios.post(`http://localhost:3000/api/user/login`, userData).then(
             (response) => {
                 const user = response.data.user
                 
@@ -25,6 +24,8 @@ const Login = () => {
                 localStorage.setItem('token', response.data.token)
             }
         ).catch((error) => {
+            console.log(error);
+            
             toast.error(error?.response?.data?.message || "Error Occured")
         })
         

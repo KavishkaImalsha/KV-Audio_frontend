@@ -12,7 +12,6 @@ const ItemOverviewModal = ({setIsVisible, selectedItemId, setSelectedItemId}) =>
     useEffect(() => {
         fetchItemDetails()
     },[selectedItemId])
-    console.log(selectedItemId);
     
 
     const fetchItemDetails = async() => {

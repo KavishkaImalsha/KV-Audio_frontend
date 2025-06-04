@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 const NavBar = () => {
     return(
         <>
-            <div className="w-full h-[80px] bg-black flex justify-center items-center relative">
+            <div className="fixed w-full h-[80px] bg-black flex justify-center items-center">
                 <img src="company_logo.png" className="w-[150px] h-[150px] absolute left-1"/>
                 <div className="text-white text-md font-bold">
                     <Link to="/" className="mx-3 hover:underline hover:underline-offset-4 hover:decoration-white">Home</Link>

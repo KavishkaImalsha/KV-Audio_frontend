@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import BackendApi from '../api/BackendApi.jsx'
+import axios from "axios"
 import toast from "react-hot-toast"
 import GridLoader from "react-spinners/GridLoader"
 import ProductCard from "../components/cards/ProductCard.jsx"
@@ -17,7 +17,7 @@ const Items = () => {
     }, [])
 
     const getProducts = async () => {
-        await BackendApi.get('/products').then((response) => {
+        await axios.get('http://localhost:3000/api/products').then((response) => {
             if(response.status == 200){
                 setProducts(response.data)
                 setLoading(false)

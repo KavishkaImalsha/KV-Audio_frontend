@@ -5,7 +5,7 @@ const ProductCard = ({products, setIsVisible, setSelectedItemId}) => {
             <div key={index} className="w-full h-[420px] max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
             <a href="#">
             <img
-                className="rounded-t-lg h-[250px] m-auto"
+                className="rounded-t-lg h-[250px] m-auto w-full"
                 src={product.image[0]}
                 alt="product image"
             />

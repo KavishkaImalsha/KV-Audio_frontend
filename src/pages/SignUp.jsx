@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom"
 import handleInputData from "../actions/handleInputData"
 import toast from "react-hot-toast"
 import axios from "axios"
-import BackendApi from "../api/BackendApi"
 
 const SignUp = () => {
     const [userData, setUserData] = useState({firstName: "", lastName: "", email: "", password: "", phoneNumber: ""})
@@ -18,12 +17,10 @@ const SignUp = () => {
             return
         }
 
-        await BackendApi.post(`/user`, userData).then((response) => {
+        await axios.post(`http://localhost:3000/api/user`, userData).then((response) => {
             toast.success(response.data.message)
             navigate('/login') 
         }).catch((error) => {
-            console.log(error);
-            
             toast.error(error?.response?.data?.message || "Error Occured")
         })
     }
