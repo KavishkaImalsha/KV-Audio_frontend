@@ -21,7 +21,7 @@ const ProductCard = ({products, setIsVisible, setSelectedItemId}) => {
             </div>
             <div className="flex items-center justify-between">
                 <span className={`text-3xl font-bold ${product.availability ? 'text-green-500' : 'text-red-500'}`}>
-                    Rs: {parseFloat(product.price).toFixed(2)}
+                    Rs: {parseFloat(product.price).toFixed(2)} <span className="text-black text-lg">/day</span>
                 </span>
                 <div className={`${product.availability ? 'bg-green-300 text-green-500' : 'bg-red-300 text-red-500'} p-2 rounded-full text-sm`}>
                     {product.availability ? 'Available' : 'Out Of Stock'}

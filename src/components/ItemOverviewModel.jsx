@@ -6,6 +6,7 @@ import GridLoader from "react-spinners/GridLoader"
 const ItemOverviewModal = ({setIsVisible, selectedItemId, setSelectedItemId}) => {
     const [product, setProduct] = useState()
     const [loading, setLoading] = useState(true)
+    const [orderDetails, setOrderDetails] = useState({days: 1, quantity: 1})
     const [error, setError] = useState(false)
     const [selectedImage, setSelectedImage] = useState(0)
     
@@ -24,13 +25,19 @@ const ItemOverviewModal = ({setIsVisible, selectedItemId, setSelectedItemId}) =>
             }
 
             setProduct(productResponse.data)
-            console.log(productResponse.data);
             
             setLoading(false)
         }catch(error){
             setError(true)
             toast.error(error)
         }
+        
+    }
+
+    const changeInput = (event) => {
+        setOrderDetails((prevState) => (
+            {...prevState, [event.target.id] : event.target.value}
+        ))
         
     }
     
@@ -79,9 +86,11 @@ const ItemOverviewModal = ({setIsVisible, selectedItemId, setSelectedItemId}) =>
                                 <div className="max-w-[60%]">
                                     <div className="w-full pl-5 h-[85%] overflow-y-auto">
                                         <ul>
-                                            <li className={`text-2xl font-semibold ${product.availability ? "text-green-500" : "text-red-500"}`}>Rs: {parseFloat(product.price).toFixed(2)}</li>
                                             <li className="text-lg font-semibold pt-2">Status: <span className={`${product.availability ? "text-green-500 bg-green-200 border-0 rounded" : "text-red-500 bg-red-200 border-0 rounded"} p-1`}>{product.availability ? "Available" : "Out of stock"}</span></li>
                                             <li><span className="text-lg font-semibold">Dimension: </span>{product.dimension}</li>
+                                            <li><span className="text-lg font-semibold">No. Days:</span><input id="days" className="ml-6 border border-gray-300 rounded pl-3 w-12" type="number" value={orderDetails.days} onChange={(event) => {changeInput(event)}}></input></li>
+                                            <li><span className="text-lg font-semibold">Quantity:</span><input id="quantity" className="ml-6 border border-gray-300 rounded pl-3 w-12" type="number" value={orderDetails.quantity} onChange={(event) => {changeInput(event)}}></input></li>
+                                            <li className={`text-2xl font-semibold ${product.availability ? "text-green-500" : "text-red-500"}`}>Rs: {parseFloat(product.price).toFixed(2)} <span className="text-black text-lg">/day</span></li>
                                         </ul>
                                         <div>
                                             <h1 className="text-center border-b-1 border-b-gray-200 text-xl">Discription</h1>
