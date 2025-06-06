@@ -2,11 +2,12 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import GridLoader from "react-spinners/GridLoader"
+import { addToCart } from "../actions/CartActions";
 
 const ItemOverviewModal = ({setIsVisible, selectedItemId, setSelectedItemId}) => {
     const [product, setProduct] = useState()
     const [loading, setLoading] = useState(true)
-    const [orderDetails, setOrderDetails] = useState({days: 1, quantity: 1})
+    const [orderDetails, setOrderDetails] = useState({quantity: 1})
     const [error, setError] = useState(false)
     const [selectedImage, setSelectedImage] = useState(0)
     
@@ -88,7 +89,7 @@ const ItemOverviewModal = ({setIsVisible, selectedItemId, setSelectedItemId}) =>
                                         <ul>
                                             <li className="text-lg font-semibold pt-2">Status: <span className={`${product.availability ? "text-green-500 bg-green-200 border-0 rounded" : "text-red-500 bg-red-200 border-0 rounded"} p-1`}>{product.availability ? "Available" : "Out of stock"}</span></li>
                                             <li><span className="text-lg font-semibold">Dimension: </span>{product.dimension}</li>
-                                            <li><span className="text-lg font-semibold">No. Days:</span><input id="days" className="ml-6 border border-gray-300 rounded pl-3 w-12" type="number" value={orderDetails.days} onChange={(event) => {changeInput(event)}}></input></li>
+                                            {/* <li><span className="text-lg font-semibold">No. Days:</span><input id="days" className="ml-6 border border-gray-300 rounded pl-3 w-12" type="number" value={orderDetails.days} onChange={(event) => {changeInput(event)}}></input></li> */}
                                             <li><span className="text-lg font-semibold">Quantity:</span><input id="quantity" className="ml-6 border border-gray-300 rounded pl-3 w-12" type="number" value={orderDetails.quantity} onChange={(event) => {changeInput(event)}}></input></li>
                                             <li className={`text-2xl font-semibold ${product.availability ? "text-green-500" : "text-red-500"}`}>Rs: {parseFloat(product.price).toFixed(2)} <span className="text-black text-lg">/day</span></li>
                                         </ul>
@@ -98,7 +99,7 @@ const ItemOverviewModal = ({setIsVisible, selectedItemId, setSelectedItemId}) =>
                                         </div>
                                     </div>
                                     <div className="flex justify-center mt-3">
-                                        <button className="text-white bg-orange-500 hover:bg-orange-600 focus:outline-none focus:ring-4 focus:ring-orange-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 w-[200px] hover:cursor-pointer">Add Cart</button>
+                                        <button className="text-white bg-orange-500 hover:bg-orange-600 focus:outline-none focus:ring-4 focus:ring-orange-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 w-[200px] hover:cursor-pointer" onClick={() => {addToCart(selectedItemId, orderDetails.quantity)}}>Add Cart</button>
                                         <button className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 w-[200px] hover:cursor-pointer">Order Now</button>
                                     </div>
                                 </div>

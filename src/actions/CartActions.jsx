@@ -1,0 +1,36 @@
+export const loadCart = () => {
+    const cart = localStorage.getItem('cart')
+
+    if(!cart){
+        const cartItem = {
+            products: [],
+            days: null,
+            startingDate: null,
+            endingDate: null
+        }
+        localStorage.setItem('cart', JSON.stringify(cartItem))
+        return cartItem
+    }
+    return JSON.parse(cart)
+}
+
+export const addToCart = (productId, quantity) => {
+    const cart = loadCart()
+    let isFound = false
+
+    if(cart){
+        cart.products.map((product) => {
+            if(product.productId == productId){
+                product.quantity += quantity
+                localStorage.setItem("cart", JSON.stringify(cart))
+                isFound = true
+                return
+            }
+        })
+    }
+
+    if(!isFound){
+        cart.products.push({productId: productId, quantity: quantity})
+        localStorage.setItem('cart', JSON.stringify(cart))
+    }
+}
