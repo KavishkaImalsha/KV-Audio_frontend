@@ -22,6 +22,7 @@ const Login = () => {
                     navigate('/')
                 }
                 localStorage.setItem('token', response.data.token)
+                localStorage.setItem('firstName', response.data.user.firstName)
             }
         ).catch((error) => {
             console.log(error);

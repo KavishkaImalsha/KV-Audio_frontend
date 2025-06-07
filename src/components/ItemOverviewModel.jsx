@@ -72,14 +72,14 @@ const ItemOverviewModal = ({setIsVisible, selectedItemId, setSelectedItemId}) =>
                             {/* Modal Body */}
                             <div className="max-h-[85vh] overflow-y-auto flex">
                                 <div className="max-w-[40%]">
-                                    <div className="m-1 max-w-full h-[290px] border-1 border-gray-200 rounded bg-cover bg-no-repeat bg-center">
-                                        <img src={product.image[selectedImage]} className="rounded w-full h-full"/>
+                                    <div className="m-1 max-w-full h-[290px] border-1 border-gray-200 rounded bg-cover bg-no-repeat bg-center flex justify-center items-center">
+                                        <img src={product.image[selectedImage]} className="rounded"/>
                                     </div>
 
                                     <div className="grid grid-cols-5">
                                         {product.image.map((url, index) => (
-                                            <div key={index} className="m-2  max-h-[300px] border-1 border-gray-200 rounded bg-cover bg-no-repeat bg-center">
-                                                <img src={url} onClick={() => {setSelectedImage(index)}} className="w-full h-full hover:cursor-pointer rounded"/>
+                                            <div key={index} className="m-2  max-h-[300px] border-1 border-gray-200 rounded bg-cover bg-no-repeat bg-center flex justify-center items-center">
+                                                <img src={url} onClick={() => {setSelectedImage(index)}} className="hover:cursor-pointer rounded"/>
                                             </div>
                                         ))}
                                     </div>
