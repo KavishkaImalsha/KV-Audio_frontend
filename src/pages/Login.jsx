@@ -23,6 +23,7 @@ const Login = () => {
                 }
                 localStorage.setItem('token', response.data.token)
                 localStorage.setItem('firstName', response.data.user.firstName)
+                localStorage.setItem('role', response.data.user.role)
             }
         ).catch((error) => {
             console.log(error);

@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom"
 import profilePic from "../../assets/profilePic.jpg"
-const NavFeatures = ({firstName}) => {
+const NavFeatures = ({firstName, role}) => {
 
     return(
     <>
         <div className="text-white absolute right-5 flex gap-4">
-            <Link className="w-7 h-7 m-auto hover:cursor-pointer">
+            {role == "customer" && (<Link className="w-7 h-7 m-auto hover:cursor-pointer">
                 <svg fill="#ffffff" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 902.86 902.86"
                 xml:space="preserve">
                 <g>
@@ -22,7 +22,7 @@ const NavFeatures = ({firstName}) => {
                     </g>
                 </g>
             </svg>
-            </Link>
+            </Link>)}
             <button className="rounded-full bg-white hover:cursor-pointer">
                 <img src={profilePic} className="w-10 h-10 rounded-full bg-cover bg-no-repeat"/>
             </button >
