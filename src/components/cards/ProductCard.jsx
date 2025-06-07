@@ -2,7 +2,7 @@ const ProductCard = ({products, setIsVisible, setSelectedItemId}) => {
     return(
         products.map((product, index) => {
             return(
-            <div key={index} className="w-full h-[420px] max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+            <div key={index} className="w-full h-[420px] sm:h-auto max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
             <a href="#">
             <img
                 className="rounded-t-lg h-[250px] m-auto w-full"

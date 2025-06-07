@@ -74,17 +74,15 @@ const Items = () => {
                 counter++;
             })
         })
-        
-        await Promise.all(promises).then((result) => {
-            setItemDetails((prevState) => ({
-                ...prevState,
-                image : result
-            }))
-            counter = 0
-        }).catch((error) => {
-            toast.error(error)
-        })
-        
+
+        try{
+            const result = await Promise.all(promises)
+            return result
+
+        }catch(error){
+            toast.error(error.message || "Image upload failed");
+            return []; 
+        }
     }
     
 
@@ -96,7 +94,9 @@ const Items = () => {
                 toast.error("Maximum 5 images only")
                 return
             }
-            await addImages()
+            
+            const uplodImageURLs = await addImages()
+            itemDetails.image = uplodImageURLs
             setProductImages([])
         }
         

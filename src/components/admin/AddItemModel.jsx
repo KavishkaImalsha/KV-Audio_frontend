@@ -32,19 +32,22 @@ const AddItemModel = ({showModel, setItem, submitForm, setProductImages}) => {
                             <div className="grid grid-cols-3 gap-5">
                                 <div className="mb-3">
                                     <label htmlFor="productId" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product Id<span className="text-red-500">*</span></label>
-                                    <input 
+                                    <input
+                                    autocomplete="off" 
                                     onChange={(event) => {handleInputData(event, setItem)}}
                                     type="text" name="productId" className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5" placeholder="Product Id" required/>
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product Name<span className="text-red-500">*</span></label>
-                                    <input 
+                                    <input
+                                    autocomplete="off" 
                                     onChange={(event) => {handleInputData(event, setItem)}}
                                     type="text" name="name" className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5" placeholder="Product Name" required/>
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="price" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product Price<span className="text-red-500">*</span></label>
-                                    <input 
+                                    <input
+                                    autocomplete="off" 
                                     onChange={(event) => {handleInputData(event, setItem)}}
                                     type="number" name="price" className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5" placeholder="Product Price" required/>
                                 </div>
@@ -52,7 +55,8 @@ const AddItemModel = ({showModel, setItem, submitForm, setProductImages}) => {
                             <div className="grid grid-cols-2 gap-5">
                                     <div className="mb-3">
                                         <label htmlFor="dimension" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product Dimension<span className="text-red-500">*</span></label>
-                                        <input 
+                                        <input
+                                        autocomplete="off" 
                                         onChange={(event) => {handleInputData(event, setItem)}}
                                         type="text" name="dimension" className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5" placeholder="Product Dimension" required/>
                                     </div>
@@ -79,7 +83,8 @@ const AddItemModel = ({showModel, setItem, submitForm, setProductImages}) => {
                                     </div>
                                     <div className="mb-3">
                                         <label htmlFor="quantity" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product Quantity<span className="text-red-500">*</span></label>
-                                        <input 
+                                        <input
+                                        autocomplete="off" 
                                         onChange={(event) => {handleInputData(event, setItem)}}
                                         type="number" name="quantity" className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5" placeholder="Product Quantity" required/>
                                     </div>
