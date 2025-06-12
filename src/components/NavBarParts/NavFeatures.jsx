@@ -5,7 +5,7 @@ const NavFeatures = ({firstName, role}) => {
     return(
     <>
         <div className="text-white absolute right-5 flex gap-4">
-            {role == "customer" && (<Link className="w-7 h-7 m-auto hover:cursor-pointer">
+            {role == "customer" && (<Link to="/cart" className="w-7 h-7 m-auto hover:cursor-pointer">
                 <svg fill="#ffffff" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 902.86 902.86"
                 xml:space="preserve">
                 <g>

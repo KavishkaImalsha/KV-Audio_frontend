@@ -9,7 +9,6 @@ const Items = () => {
     const [loading, setLoading] = useState(true)
     const [isVisible, setIsVisible] = useState(false)
     const [selectedItemId, setSelectedItemId] = useState(null)
-    console.log(selectedItemId);
     
 
     useEffect(() => {

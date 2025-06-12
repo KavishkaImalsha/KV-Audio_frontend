@@ -6,6 +6,7 @@ import Gallery from "./Gallery"
 import Contact from "./Contact"
 import Error from "./Error"
 import AdminDashboard from "./admin/AdminDashboard"
+import Cart from "./User/Cart"
 
 const MainHome = () => {
     return(
@@ -18,6 +19,7 @@ const MainHome = () => {
                     <Route path="/items" element={<Items/>}/>
                     <Route path="/gallery" element={<Gallery/>}/>
                     <Route path="/contact" element={<Contact/>}/>
+                    <Route path="/cart" element={<Cart/>}/>
                     <Route path="*" element={<Error/>}/>
                 </Routes>
             </div>

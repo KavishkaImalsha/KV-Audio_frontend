@@ -1,3 +1,5 @@
+import toast from "react-hot-toast"
+
 export const loadCart = () => {
     const cart = localStorage.getItem('cart')
 
@@ -23,6 +25,7 @@ export const addToCart = (productId, quantity) => {
             if(product.productId == productId){
                 product.quantity += quantity
                 localStorage.setItem("cart", JSON.stringify(cart))
+                toast.success("Item added to cart")
                 isFound = true
                 return
             }
@@ -32,5 +35,6 @@ export const addToCart = (productId, quantity) => {
     if(!isFound){
         cart.products.push({productId: productId, quantity: quantity})
         localStorage.setItem('cart', JSON.stringify(cart))
+        toast.success("Item added to cart")
     }
 }
