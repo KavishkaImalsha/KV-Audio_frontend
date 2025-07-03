@@ -140,7 +140,7 @@ const Cart = () => {
                                 <p className="text-center text-2xl font-semibold mt-3">Your cart is empty</p>
                                 <p className="text-lg text-center px-85 text-gray-500 font-semibold ">Look like you have not added anything to your cart.Go ahead & explore top products</p>
                                 <div className="flex justify-center">
-                                    {orders && <Link className="text-center hover:underline hover:text-blue-400 py-4">View Orders</Link>}
+                                    {orders && <Link to="/user/orders" className="text-center hover:underline hover:text-blue-400 py-4">View Orders</Link>}
                             </div>
                                 </div>
                         </div>
