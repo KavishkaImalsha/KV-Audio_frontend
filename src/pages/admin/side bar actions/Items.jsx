@@ -1,7 +1,6 @@
 import { IoAddCircleSharp } from "react-icons/io5"
 import { useEffect, useState } from "react"
 import AddItemModel from "../../../components/admin/AddItemModel"
-import axios from "axios"
 import toast from 'react-hot-toast'
 import { useNavigate } from "react-router-dom"
 import GridLoader from "react-spinners/GridLoader"

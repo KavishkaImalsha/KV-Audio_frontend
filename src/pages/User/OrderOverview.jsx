@@ -7,7 +7,7 @@ const OrderOverview = ({orders}) => {
                         <div className="bg-gray-100 h-[20%] rounded-t-xl grid grid-cols-5 text-center">
                             <div className="pt-5"><span className="text-gray-600 block">Order Placed</span><p className="font-semibold">{new Date(order.orderDate).toISOString().split('T')[0]}</p></div>
                             <div className="pt-5"><span className="text-gray-600 block">Total</span><p className="font-semibold">Rs. {order.totalAmount.toFixed(2)}</p></div>
-                            <div className="pt-5"><span className="text-gray-600 block">Order Status</span><p className="font-semibold text-yellow-600">{order.isApproval ? "Approved" : "Pending"}</p></div>
+                            <div className="pt-5"><span className="text-gray-600 block">Order Status</span><p className={`font-semibold ${order.isApproval ? "text-green-600" : "text-yellow-600"}`}>{order.isApproval ? "Approved" : "Pending"}</p></div>
                             <div className="col-span-2 pt-5">
                                 <span className="text-gray-600 block">Order ID</span>
                                 <p className="font-semibold">{order.orderId}</p>
