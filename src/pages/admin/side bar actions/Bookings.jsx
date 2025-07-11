@@ -47,7 +47,7 @@ const Bookings = () => {
             )}>Pending Orders
             </NavLink>
             <NavLink to={'/admin/bookings/confirmedOrders'} className={({isActive}) => (
-                `p-1 mx-3 ${isActive ?  "bg-blue-600 text-white rounded-lg font-semibold" : "text-black"}`
+                `p-2 mx-3 ${isActive ?  "bg-blue-600 text-white rounded-lg font-semibold" : "text-black"}`
             )}>Confirmed Orders
             </NavLink>
         </div>
