@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import GridLoader from "react-spinners/GridLoader"
 import { addToCart } from "../actions/CartActions";
+import { useNavigate } from "react-router-dom";
 
 const ItemOverviewModal = ({setIsVisible, selectedItemId, setSelectedItemId}) => {
     const [product, setProduct] = useState()
@@ -10,6 +11,7 @@ const ItemOverviewModal = ({setIsVisible, selectedItemId, setSelectedItemId}) =>
     const [orderDetails, setOrderDetails] = useState({quantity: 1})
     const [error, setError] = useState(false)
     const [selectedImage, setSelectedImage] = useState(0)
+    const navigate = useNavigate()
     
     useEffect(() => {
         fetchItemDetails()
@@ -91,7 +93,7 @@ const ItemOverviewModal = ({setIsVisible, selectedItemId, setSelectedItemId}) =>
                                         </div>
                                     </div>
                                     <div className="flex justify-center mt-3">
-                                        <button className="text-white bg-orange-500 hover:bg-orange-600 focus:outline-none focus:ring-4 focus:ring-orange-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 w-[200px] hover:cursor-pointer" onClick={() => {addToCart(selectedItemId, orderDetails.quantity)}}>Add Cart</button>
+                                        <button className="text-white bg-orange-500 hover:bg-orange-600 focus:outline-none focus:ring-4 focus:ring-orange-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 w-[200px] hover:cursor-pointer" onClick={() => {addToCart(selectedItemId, orderDetails.quantity, navigate)}}>Add Cart</button>
                                         <button className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 w-[200px] hover:cursor-pointer">Order Now</button>
                                     </div>
                                 </div>
