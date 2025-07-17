@@ -34,7 +34,7 @@ const Items = () => {
         {isVisible && <ItemOverviewModal setIsVisible={setIsVisible} selectedItemId={selectedItemId} setSelectedItemId={setSelectedItemId}/>}
         {loading ? (<div className="flex justify-center items-center"><GridLoader color="#2563eb" className="mt-70"/></div>) : (
             <div className="w-full overflow-hidden">
-            <div className="bg-[url('item-page-banner-image.jpeg')] bg-no-repeat bg-cover bg-center h-[400px]"></div>
+            <div className="bg-[url('item-page-banner-image.jpeg')] bg-no-repeat bg-cover bg-center h-[600px]"></div>
             <div className="bg-gray-100 rounded-sm border-gray-500 max-w-[90%] mx-auto grid grid-cols-3 gap-y-3 p-3 gap-5">
                     <ProductCard products={products} setIsVisible={setIsVisible} setSelectedItemId={setSelectedItemId}/>
             </div>

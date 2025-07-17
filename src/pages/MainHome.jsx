@@ -12,8 +12,7 @@ import UserDashboard from "./User/dashboard/UserDashboard"
 const MainHome = () => {
     return(
         <>
-            <NavBar/>
-            <div className="h-[calc(100vh - 80px)] w-full">
+            <div className="h-full w-full relative">
                 <Routes>
                     <Route path="/" element={<Home/>}/>
                     <Route path="/admin/*" element={<AdminDashboard/>}/>
@@ -25,6 +24,7 @@ const MainHome = () => {
                     <Route path="*" element={<Error/>}/>
                 </Routes>
             </div>
+            <NavBar/>
         </>
     )
 }
