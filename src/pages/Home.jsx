@@ -13,7 +13,7 @@ import NewArrivalsCard from "../components/cards/NewArrivalsCard"
 import Footer from "../components/Footer"
 const Home = () => {
     const [newArrivals, setNewArrivals] = useState([])
-    
+    const [loading, setLoading] = useState(true)
     useEffect(() => {
         fetchNewArrivals()
     }, [])
@@ -23,10 +23,14 @@ const Home = () => {
             const newArrivalsRes = await BackendApi.get('/products/newArrivals')
 
             if(newArrivalsRes.status === 200){
-                setNewArrivals(newArrivalsRes.data.products)
+                setNewArrivals(newArrivalsRes.data.products || [])
             }
         }catch(error){
+            console.log(error);
+            
             toast.error(error?.response?.data?.message)
+        }finally{
+            setLoading(false)
         }
     }
     
@@ -95,7 +99,7 @@ const Home = () => {
         }
     return(
         <>
-            <div>
+            {!loading && (<div>
                 <div>
                     <HeroSliderHome/>
                 </div>
@@ -137,7 +141,7 @@ const Home = () => {
                     </div>
                 </div>
                 <Footer/>
-            </div>
+            </div>)}
         </>
     )
 }
