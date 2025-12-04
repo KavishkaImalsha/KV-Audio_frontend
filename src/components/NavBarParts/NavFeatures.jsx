@@ -1,11 +1,12 @@
 import { Link, useNavigate } from "react-router-dom"
 import profilePic from "../../assets/profilePic.jpg"
-import { useEffect, useRef, useState } from "react"
+import { useContext, useEffect, useRef, useState } from "react"
 import { ShoppingCart, User, Package, Settings, LogOut, ChevronDown } from "lucide-react"
+import CartContext from "../../context/CartContext.jsx"
 
 const NavFeatures = ({ firstName, role }) => {
     const [showModel, setShowModel] = useState(false)
-    const [countOfCartItems, setCountOfCartItems] = useState(0)
+    const { cartCount } = useContext(CartContext)
     const navigate = useNavigate()
     const modelRef = useRef(null)
 
@@ -15,8 +16,6 @@ const NavFeatures = ({ firstName, role }) => {
                 setShowModel(false)
             }
         }
-        const cartItems = JSON.parse(localStorage.getItem("cart"))
-        setCountOfCartItems(cartItems.products.length)
         
         document.addEventListener('mousedown', handleClickedOutside)
         return () => {
@@ -38,7 +37,7 @@ const NavFeatures = ({ firstName, role }) => {
                 <Link to="/cart" className="relative group text-gray-300 hover:text-white transition-colors">
                     <ShoppingCart size={24} />
                     <span className="absolute -top-2 -right-2 bg-blue-600 text-white text-[10px] font-bold w-4 h-4 flex items-center justify-center rounded-full border border-black">
-                        {countOfCartItems}
+                        {cartCount}
                     </span>
                 </Link>
             )}

@@ -1,9 +1,11 @@
 import { useNavigate } from "react-router-dom"
-import { addToCart } from "../../actions/CartActions"
+import CartContext from "../../context/CartContext"
+import { useContext } from "react"
+import Cart from "../../pages/User/Cart"
 
 const NewArrivalsCard = ({product, index}) => {
     const navigate = useNavigate()
-    
+    const { addToCart } = useContext(CartContext)
     return(<>
         <div key={index} className="mb-2 m-auto w-[250px] h-[300px] rounded-lg border border-gray-300 relative">
             <img className="w-full h-[70%] object-contain" src={product.image[0]}/>

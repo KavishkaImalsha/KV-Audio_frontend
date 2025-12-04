@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import ProductCard from "../components/cards/ItemCard.jsx"; 
 import BackendApi from "../api/BackendApi.jsx";
 import toast from "react-hot-toast";
 import { Audio } from 'react-loader-spinner'
 import ProductDetailsPopUpModel from "../components/models/productDetails/ProductDetailsPopUpModel.jsx";
-import { addToCart } from "../actions/CartActions.jsx";
+import CartContext from "../context/CartContext.jsx";
 
 const AllProducts = () => {
   const [products, setProducts] = useState([])
@@ -13,6 +13,7 @@ const AllProducts = () => {
   const [priceRange, setPriceRange] = useState(100);
   const [selectedProduct,setSelectedProduct] = useState(null)
   const [isModelOpen,setIsModelOpen] = useState(false)
+  const { addToCart } = useContext(CartContext)
 
   useEffect(() => {
     fetchAllProducts()
