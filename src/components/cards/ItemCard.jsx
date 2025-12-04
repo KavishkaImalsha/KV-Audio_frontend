@@ -1,13 +1,9 @@
 import React from 'react';
 
-const ItemCard = ({ product }) => {
+const ItemCard = ({ product, onViewDetails}) => {
   return (
     <div className="group relative bg-white rounded-xl shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 flex flex-col h-full">
-      
-      {/* --- IMAGE SECTION --- */}
       <div className="relative h-64 w-full overflow-hidden bg-gray-50">
-        
-        {/* Floating Badge: Availability */}
         <div className={`absolute top-3 left-3 z-10 px-3 py-1 text-xs font-bold rounded-full uppercase tracking-wide
           ${product.availability 
             ? 'bg-green-100 text-green-700' 
@@ -15,48 +11,42 @@ const ItemCard = ({ product }) => {
           {product.availability ? 'Available' : 'Rented Out'}
         </div>
 
-        {/* The Single Image with Zoom Effect */}
         <img 
           src={product.image[0]} 
           alt={product.name} 
           className="h-full w-full object-cover group-hover:scale-110 transition-transform duration-500"
         />
         
-        {/* Quick Action Button (Visible on Hover) */}
         <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 bg-gradient-to-t from-black/70 to-transparent">
-             <button className="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold shadow-lg hover:bg-blue-700 active:scale-95 transition-all">
+             <button className="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold shadow-lg hover:bg-blue-700 active:scale-95 transition-all"
+              onClick={() => {onViewDetails(product)}}
+             >
                 View Details
              </button>
         </div>
       </div>
 
-      {/* --- CONTENT SECTION --- */}
       <div className="p-5 flex flex-col flex-grow">
         
-        {/* Category & Brand (Small Text) */}
         <div className="flex justify-between items-center mb-2">
             <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">{product.category}</span>
             <span className="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded">{product.brand}</span>
         </div>
 
-        {/* Title */}
         <h3 className="text-lg font-bold text-gray-800 font-quicksand mb-1 truncate" title={product.name}>
           {product.name}
         </h3>
 
-        {/* Short Description (Optional - Limit to 1 line) */}
         <p className="text-sm text-gray-500 line-clamp-2 mb-4 flex-grow">
            {product.description}
         </p>
 
-        {/* Price Section */}
         <div className="mt-auto pt-4 border-t border-gray-100 flex justify-between items-center">
           <div>
             <span className="text-xs text-gray-400 block">Rent per day</span>
             <span className="text-xl font-bold text-gray-900">${product.price}</span>
           </div>
           
-          {/* Add to Cart / Rent Button Icon */}
           <button 
             disabled={!product.availability}
             className={`p-3 rounded-full transition-colors 

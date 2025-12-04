@@ -3,14 +3,16 @@ import ProductCard from "../components/cards/ItemCard.jsx";
 import BackendApi from "../api/BackendApi.jsx";
 import toast from "react-hot-toast";
 import { Audio } from 'react-loader-spinner'
-// import BackendApi from "../api/BackendApi"; // Uncomment when connecting to DB
+import ProductDetailsPopUpModel from "../components/models/productDetails/ProductDetailsPopUpModel.jsx";
+import { addToCart } from "../actions/CartActions.jsx";
 
 const AllProducts = () => {
-  // Mock Data (Replace with your API data)
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [priceRange, setPriceRange] = useState(100);
+  const [selectedProduct,setSelectedProduct] = useState(null)
+  const [isModelOpen,setIsModelOpen] = useState(false)
 
   useEffect(() => {
     fetchAllProducts()
@@ -39,13 +41,23 @@ const AllProducts = () => {
     return categoryMatch;
   });
 
+  const handleOpenModel = (product) => {
+    setSelectedProduct(product)
+    setIsModelOpen(true)
+  }
+
+  const handleCloseModel = () => {
+    setIsModelOpen(false)
+    setSelectedProduct(null)
+  }
+
   return (
     <>
       {loading ? 
               (<div className="flex justify-center items-center h-screen">
                 <Audio
-                  height="100"
-                  width="100"
+                  height="50"
+                  width="50"
                   color="#2E4DFF"
                   ariaLabel="audio-loading"
                   wrapperClass="wrapper-class"
@@ -96,7 +108,7 @@ const AllProducts = () => {
               {filteredProducts.length > 0 ? (
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                       {filteredProducts.map((product) => (
-                      <ProductCard key={product.id} product={product} />
+                      <ProductCard key={product.id} product={product} onViewDetails={handleOpenModel}/>
                       ))}
                   </div>
               ) : (
@@ -106,6 +118,10 @@ const AllProducts = () => {
                   </div>
               )}
           </main>
+
+          {isModelOpen && selectedProduct && (
+            <ProductDetailsPopUpModel product={selectedProduct} onClose={handleCloseModel} onAddToCart={addToCart}/>
+          )}
 
         </div>
     </div>)}
