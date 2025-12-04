@@ -47,7 +47,12 @@ export const CartProvider = ({children}) => {
         }
     }
 
-    return(<CartContext.Provider value={{cartCount, addToCart}}>
+    const removeAllFormCart = () => {
+        localStorage.removeItem('cart')
+        setCartCount(0)
+    }
+
+    return(<CartContext.Provider value={{cartCount, addToCart, removeAllFormCart}}>
         {children}
     </CartContext.Provider>)
 }

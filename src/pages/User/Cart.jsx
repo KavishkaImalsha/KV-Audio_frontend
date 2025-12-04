@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import CartTable from "../../components/tables/CartTable"
 import backendApi from "../../api/BackendApi"
 import {toast} from 'react-hot-toast'
@@ -6,6 +6,7 @@ import GridLoader from "react-spinners/GridLoader"
 import {Link, useNavigate} from "react-router-dom"
 import BackendApi from "../../api/BackendApi"
 import emptyCartImg from "../../../public/empty_cart.png"
+import CartContext from "../../context/CartContext"
 
 const Cart = () => {
     const [cartItems, setCartItems] = useState(null)
@@ -17,6 +18,7 @@ const Cart = () => {
     const [subTotal, setSubTotal] = useState(0)
     const [orders, setOrders] = useState([])
     const navigate = useNavigate()
+    const { removeAllFormCart } = useContext(CartContext)
     
     useEffect(() => {
         const cart = JSON.parse(localStorage.getItem('cart'))
@@ -112,7 +114,7 @@ const Cart = () => {
             }
 
             await BackendApi.post('/orders', cartItems).then((response) => {
-                localStorage.removeItem("cart")
+                removeAllFormCart()
                 toast.success(response.data.message)
                 navigate("/user/orders")
                 return
