@@ -36,7 +36,7 @@ const NavBar = () => {
                     >
                         <img src="company_logo.png" alt="Logo" className="w-[150px] h-[150px] object-contain" />
                         <span className="text-white font-bold text-xl font-quicksand tracking-wider hidden sm:block">
-                            AUDIO<span className="text-blue-600">SHOP</span>
+                            AUDIO<span className="text-blue-600">PRO</span>
                         </span>
                     </div>
 
