@@ -63,17 +63,6 @@ const Cart = () => {
         }
     }, [fromDate, toDate])
 
-    // const getOrders = async() => {
-    //     try{
-    //         const orderRes = await BackendApi.get("/orders")
-    //         console.log(orderRes.data);
-            
-    //     }catch(error){
-    //         console.log(error);
-            
-    //     }
-    // }
-
     const getCartItemsDetails = async() => {
         setLoading(true)
         try{
@@ -131,9 +120,9 @@ const Cart = () => {
     }
     return(
         <>
-        <div className="bg-gray-100 h-screen">
+        <div className="bg-gray-100 min-h-screen pt-20">
             <div className="bg-white w-[85%] m-auto h-full">
-                <div>
+                <div className="m-auto">
                     <h1 className="font-bold text-3xl p-5">Shopping Cart</h1>
                     {!cartItems ? <div>
                         <div>

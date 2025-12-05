@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { Audio } from 'react-loader-spinner'
 import ProductDetailsPopUpModel from "../components/models/productDetails/ProductDetailsPopUpModel.jsx";
 import CartContext from "../context/CartContext.jsx";
+import { useSearchParams } from "react-router-dom";
 
 const AllProducts = () => {
   const [products, setProducts] = useState([])
@@ -14,10 +15,21 @@ const AllProducts = () => {
   const [selectedProduct,setSelectedProduct] = useState(null)
   const [isModelOpen,setIsModelOpen] = useState(false)
   const { addToCart } = useContext(CartContext)
+  const [searchParams] = useSearchParams()
 
   useEffect(() => {
     fetchAllProducts()
   },[])
+
+  useEffect(() => {
+    const categoryFromUrl = searchParams.get('category')
+
+    if(categoryFromUrl){
+      setSelectedCategory(categoryFromUrl)
+    }else{
+      setSelectedCategory("All")
+    }
+  }, [searchParams])
 
   const fetchAllProducts = async() => {
     try{
