@@ -4,6 +4,7 @@ import AdminHome from './side bar actions/AdminHome.jsx'
 import Items from './side bar actions/Items.jsx'
 import UpdateItemModel from '../../components/admin/UpdateItemModel.jsx'
 import Bookings from './side bar actions/Bookings.jsx'
+import Users from './side bar actions/Users.jsx'
 const AdminDashboard = () => {
     return(
         <>
@@ -15,7 +16,7 @@ const AdminDashboard = () => {
                   <Route path='/items' element={<Items/>}/>
                   <Route path='/edit-item' element={<UpdateItemModel/>}/>
                   <Route path='/bookings/*' element={<Bookings/>}/>
-                  <Route path='/users' element={<h1>Users</h1>}/>
+                  <Route path='/users' element={<Users/>}/>
               </Routes>
             </div>
           </div>
