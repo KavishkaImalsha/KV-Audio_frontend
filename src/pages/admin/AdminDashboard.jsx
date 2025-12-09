@@ -9,7 +9,7 @@ const AdminDashboard = () => {
         <>
           <div className='h-[calc(100vh-80px)] flex pt-20'>
             <AdminSideBar/>
-            <div className='w-[calc(100vw-200px)] overflow-x-hidden mx-3 overflow-y-auto'>
+            <div className='ml-64 w-[calc(100vw-200px)] overflow-x-hidden mx-3 overflow-y-auto'>
               <Routes>
                   <Route path='/dashboard' element={<AdminHome/>}/>
                   <Route path='/items' element={<Items/>}/>

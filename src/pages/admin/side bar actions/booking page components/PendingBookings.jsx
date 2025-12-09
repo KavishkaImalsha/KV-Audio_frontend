@@ -1,91 +1,140 @@
 import toast from "react-hot-toast";
-import BackendApi from "../../../../api/BackendApi"
+import BackendApi from "../../../../api/BackendApi";
 import Swal from 'sweetalert2'
+import { Check, Trash2, Box, User, CreditCard } from "lucide-react";
 
-const PendingBookings = ({orders, refreshTrigger}) => {
+const PendingBookings = ({ orders, refreshTrigger }) => {
+    console.log(orders);
+    
+
     const approvalOrder = async(orderId) => {
-        await BackendApi.put(`orders/${orderId}`).then((response) => {
-            toast.success(response?.data?.message)
-            refreshTrigger(prevState => prevState + 1)
-        }).catch((error) => {
-            toast.error(error?.response?.data?.message)
-        })
+        try {
+            const response = await BackendApi.put(`orders/${orderId}`);
+            toast.success(response?.data?.message);
+            refreshTrigger(prevState => prevState + 1);
+        } catch(error) {
+            toast.error(error?.response?.data?.message || "Approval failed");
+        }
     }
 
     const deleteOrder = async(orderId) => {
         Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
+            title: "Reject Order?",
+            text: "This will permanently remove the booking.",
             icon: "warning",
             showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
+            confirmButtonColor: "#EF4444",
+            cancelButtonColor: "#6B7280",
             confirmButtonText: "Yes, delete it!"
         }).then(async(result) => {
-            try{
-                if(result.isConfirmed){
+            if(result.isConfirmed){
+                try{
                     const orderDelRes = await BackendApi.delete(`/orders/${orderId}`)
-
                     if(orderDelRes.status === 200){
                         refreshTrigger(prev => prev + 1)
                         toast.success(orderDelRes.data.message)
                     }
+                } catch(error){
+                    toast.error(error?.response?.data?.message || "Delete failed")
                 }
-            }catch(error){
-                toast.error(error?.response?.data?.message)
             }
         })
     }
-    return(<>
-            <tbody>
-                {orders.map((order,index) => (
-                <tr id={index} className="text-center bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
-                    <th scope="row" className="px-2 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    {order.orderId}
-                    </th>
-                    <td className="py-4 align-top max-w-[300px] px-3">
-                        <div className="space-y-2">
-                            {order.orderList.map((item, idx) => (
-                                <div key={idx} className="flex gap-2 items-start text-left">
-                                    <img
-                                    src={item.product.image}
-                                    alt="Product"
-                                    className="w-10 h-10 object-cover flex-shrink-0"
-                                    />
-                                    <div className="text-sm text-gray-800 break-words">
-                                    <p className="font-semibold">{item.product.name}</p>
-                                    <p className="text-xs text-gray-500">Qty: {item.quantity}</p>
-                                    </div>
+
+    if (!orders || orders.length === 0) {
+        return (
+            <div className="flex flex-col items-center justify-center h-64 text-gray-400">
+                <Box size={48} className="mb-4 opacity-20"/>
+                <p>No pending orders at the moment.</p>
+            </div>
+        )
+    }
+
+    return (
+        <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse">
+                <thead>
+                    <tr className="bg-gray-50 text-gray-500 text-xs uppercase tracking-wider border-b border-gray-200">
+                        <th className="px-6 py-4 font-semibold">Order ID</th>
+                        <th className="px-6 py-4 font-semibold">Items</th>
+                        <th className="px-6 py-4 font-semibold">Customer</th>
+                        <th className="px-6 py-4 font-semibold">Total</th>
+                        <th className="px-6 py-4 font-semibold text-right">Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody className="divide-y divide-gray-100">
+                    {orders.map((order, index) => (
+                        <tr key={index} className="hover:bg-gray-50 transition-colors group">
+                            <td className="px-6 py-4 align-top">
+                                <span className="font-mono text-xs font-bold text-orange-600 bg-orange-50 px-2 py-1 rounded border border-orange-100">
+                                    #{order.orderId ? order.orderId.slice(-6).toUpperCase() : "N/A"}
+                                </span>
+                            </td>
+
+                            <td className="px-6 py-4 align-top">
+                                <div className="space-y-3">
+                                    {order.orderList.map((item, idx) => (
+                                        <div key={idx} className="flex gap-3 items-center">
+                                            <div className="w-10 h-10 rounded-lg bg-gray-100 border border-gray-200 overflow-hidden flex-shrink-0">
+                                                <img
+                                                    src={item.product.image}
+                                                    alt="Product"
+                                                    className="w-full h-full object-cover"
+                                                />
+                                            </div>
+                                            <div>
+                                                <p className="text-sm font-semibold text-gray-800 line-clamp-1">{item.product.name}</p>
+                                                <p className="text-xs text-gray-500">Qty: {item.quantity}</p>
+                                            </div>
+                                        </div>
+                                    ))}
                                 </div>
-                            ))}
-                        </div>
-                    </td>
-                    <td className="px-2 py-2">{order.email}</td>
-                    <td className="px-2 py-2">Rs: {order.totalAmount.toFixed(2)}</td>
-                    <td className="px-2 py-2 text-right">
-                        <div className="flex justify-center">
-                            <button className="hover:cursor-pointer text-green-400 hover:text-white border border-green-400 hover:bg-green-400 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-3 py-2 text-center me-2 mb-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-400 dark:focus:ring-green-600"
-                                onClick={() => {approvalOrder(order.orderId)}}
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" className="w-5 h-5" viewBox="0,0,256,256" fill="currentColor">
-                                <g transform="scale(5.12,5.12)">
-                                    <path d="M42.875,8.625c-0.03125,0.00781 -0.0625,0.01953 -0.09375,0.03125c-0.26172,0.06641 -0.48828,0.23438 -0.625,0.46875l-20.4375,31.6875l-14.0625,-12.6875c-0.24609,-0.3125 -0.65625,-0.44922 -1.04297,-0.34766c-0.38672,0.10156 -0.67187,0.42578 -0.73047,0.82031c-0.05859,0.39453 0.12109,0.78516 0.46094,0.99609l14.90625,13.5c0.21875,0.19141 0.51172,0.27734 0.80078,0.23438c0.28906,-0.04297 0.54297,-0.20703 0.69922,-0.45312l21.09375,-32.6875c0.23047,-0.32812 0.24219,-0.76172 0.03125,-1.10156c-0.21094,-0.33984 -0.60547,-0.51953 -1,-0.46094z" />
-                                </g>
-                                </svg>
-                            </button>
-                            <button className="hover:cursor-pointer text-red-400 hover:text-white border border-red-400 hover:bg-red-400 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2 text-center me-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-400 dark:focus:ring-red-600"
-                                onClick={() => {deleteOrder(order.orderId)}}
-                            >
-                                <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" className="w-5 h-5" viewBox="0 0 24 24">
-                                    <path d="M 10 2 L 9 3 L 3 3 L 3 5 L 4.109375 5 L 5.8925781 20.255859 L 5.8925781 20.263672 C 6.023602 21.250335 6.8803207 22 7.875 22 L 16.123047 22 C 17.117726 22 17.974445 21.250322 18.105469 20.263672 L 18.107422 20.255859 L 19.890625 5 L 21 5 L 21 3 L 15 3 L 14 2 L 10 2 z M 6.125 5 L 17.875 5 L 16.123047 20 L 7.875 20 L 6.125 5 z"></path>
-                                </svg>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-                ))}
-            </tbody>
-    </>)
+                            </td>
+
+                            <td className="px-6 py-4 align-top text-sm text-gray-600">
+                                <div className="flex items-center gap-2 mb-1">
+                                    <User size={14} className="text-gray-400"/> 
+                                    {order.email}
+                                </div>
+
+                                <div className="text-xs text-gray-400 pl-6">Ordered: {new Date(order.orderDate).toLocaleDateString()}</div>
+                            </td>
+
+                            <td className="px-6 py-4 align-top">
+                                <div className="flex items-center gap-1 font-bold text-gray-800">
+                                    <span className="text-gray-400 text-xs font-bold uppercase">Rs.</span>
+                                    {order.totalAmount.toFixed(2)}
+                                </div>
+                            </td>
+
+                            <td className="px-6 py-4 align-top text-right">
+                                <div className="flex justify-end gap-2">
+                                    <button 
+                                        onClick={() => approvalOrder(order.orderId)}
+                                        className="flex items-center gap-1 px-3 py-1.5 bg-green-50 text-green-700 hover:bg-green-600 hover:text-white rounded-lg transition-all text-xs font-bold shadow-sm border border-green-200 hover:border-green-600"
+                                        title="Approve Order"
+                                    >
+                                        <Check size={16} />
+                                        <span>Approve</span>
+                                    </button>
+
+                                    <button 
+                                        onClick={() => deleteOrder(order.orderId)}
+                                        className="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors border border-transparent hover:border-red-100"
+                                        title="Reject Order"
+                                    >
+                                        <Trash2 size={18} />
+                                    </button>
+
+                                </div>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    )
 }
 
 export default PendingBookings
