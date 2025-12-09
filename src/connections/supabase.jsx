@@ -1,6 +1,6 @@
 import {createClient} from '@supabase/supabase-js' 
-const anon_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFpcGhveXl2enh5b3B3eXdjeGJoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI3MTI2OTIsImV4cCI6MjA1ODI4ODY5Mn0.NGQXktGi_y7YV9sq4S-ePWeW58rvhknFACm44vQqdCI"
-const project_url = "https://aiphoyyvzxyopwywcxbh.supabase.co"
+const anon_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF0dGd0Z2l3anVnY2hpY2p4cnloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUyODY5ODMsImV4cCI6MjA4MDg2Mjk4M30.SYtCjxHKNB-reicdUzwQrB75qw5Sex0cheg7ILYyrMU"
+const project_url = "https://attgtgiwjugchicjxryh.supabase.co"
 
 const supabase = createClient(project_url, anon_key)
 

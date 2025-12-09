@@ -63,9 +63,7 @@ const UpdateItemModel = () => {
         <>
             <div className="backdrop-blur-sm flex overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 max-h-full">
             <div className="p-4 w-[60%] max-h-[95vh]">
-                {/* <!-- Modal content --> */}
                 <div className=" bg-white rounded-lg shadow-sm dark:bg-gray-700">
-                    {/* <!-- Modal header --> */}
                     <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200">
                         <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
                             <span className="text-3xl font-bold text-blue-600">Update</span> existing item
@@ -79,7 +77,7 @@ const UpdateItemModel = () => {
                             <span className="sr-only">Close modal</span>
                         </button>
                     </div>
-                    {/* <!-- Modal body --> */}
+                    
                     <div className="p-4 md:p-5 max-h-[80vh] overflow-y-auto">
                         <form className="space-y-4" onSubmit={(event) => {handelSubmit(event)}}>
                             <ImageUploadButton setProductImages={setProductImages}/>

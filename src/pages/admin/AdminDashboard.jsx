@@ -7,7 +7,7 @@ import Bookings from './side bar actions/Bookings.jsx'
 const AdminDashboard = () => {
     return(
         <>
-          <div className='h-[calc(100vh-80px)] flex'>
+          <div className='h-[calc(100vh-80px)] flex pt-20'>
             <AdminSideBar/>
             <div className='w-[calc(100vw-200px)] overflow-x-hidden mx-3 overflow-y-auto'>
               <Routes>
