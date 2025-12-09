@@ -42,7 +42,9 @@ const Login = () => {
                 <Link to='/signup' className="w-[400px] h-[50px] mt-8 ml-8 border-4 border-white rounded-lg hover:cursor-pointer hover:bg-white hover:text-black hover:font-medium flex items-center justify-center">SignUp</Link>
             </div>
             <div className="w-[400px] h-[500px] bg-white absolute right-0 translate-x-[-60%] border rounded-lg border-white">
-                <div className="flex justify-center items-center">
+                <div className="flex justify-center items-center cursor-pointer"
+                    onClick={() => {navigate('/')}}
+                >
                     <img src="company_logo.png" className="w-45 h-45"/>
                 </div>
                 <h1 className="font-medium text-center"><span className="font-bold text-3xl text-blue-600">Login</span> to your account.</h1>

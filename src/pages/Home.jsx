@@ -10,21 +10,28 @@ import speakerImg from "../assets/category card images/speaker.jpeg"
 import mic from "../assets/category card images/mic.jpeg"
 import mixer from "../assets/category card images/mixer.jpeg"
 import amplify from "../assets/category card images/amplify.jpeg"
-import { ArrowRight, CheckCircle, Star, Music, Zap } from "lucide-react"
+import { ArrowRight, CheckCircle, Star, Music, Zap, PenTool } from "lucide-react"
 import { Audio } from 'react-loader-spinner'
 import { useNavigate } from "react-router-dom"
 import ProductDetailsPopUpModel from "../components/models/productDetails/ProductDetailsPopUpModel"
 import CartContext from "../context/CartContext"
+import FeedbackModal from "../components/models/feedbackForm/FeedbackModel"
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
+
 const Home = () => {
     const [newArrivals, setNewArrivals] = useState([])
     const [loading, setLoading] = useState(true)
     const [isModelShow, setIsModelShow] = useState(false)
+    const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState(false)
+    const [feedbacks, setFeedbacks] = useState([])
     const [clickedProduct, setClickedProduct] = useState(null)
     const { addToCart } = useContext(CartContext)
     const navigate = useNavigate()
 
     useEffect(() => {
         fetchNewArrivals()
+        refreshFeedbacks()
     }, [])
 
     const fetchNewArrivals = async () => {
@@ -35,8 +42,6 @@ const Home = () => {
             }
         } catch (error) {
             toast.error(error?.response?.data?.message)
-        } finally {
-            setLoading(false)
         }
     }
 
@@ -48,7 +53,6 @@ const Home = () => {
         navigate(`/items?category=${encodeURIComponent(categoryName)}`)
     }
 
-    // --- DATA ---
     const categories = [
         { name: "Speakers", image: speakerImg, desc: "Powerful sound for any venue" },
         { name: "Microphones", image: mic, desc: "Crystal clear vocals" },
@@ -56,21 +60,26 @@ const Home = () => {
         { name: "Amplifiers", image: amplify, desc: "Boost your performance" }
     ]
 
-    const feedbacks = [
-        { name: "Nimal Perera", comment: "Excellent service! The equipment was in perfect condition." },
-        { name: "Samantha Jayasinghe", comment: "Friendly support and quick response. Will rent again!" },
-        { name: "Dinesh Fernando", comment: "Everything worked smoothly. Highly recommended." },
-        { name: "Anushka Silva", comment: "Impressed by the sound quality. Easy pickup." }
-    ];
+    const refreshFeedbacks = async() => {
+        try{
+            const reviewRes = await BackendApi.get('/reviews')
+            setFeedbacks(reviewRes.data)
+        }catch(error){
+            toast.error(error?.response?.data?.message)
+        }finally {
+            setLoading(false)
+        }
+    }
 
     const sliderSettings = {
         dots: true,
-        infinite: true,
+        infinite: feedbacks.length > 3,
         speed: 800,
         slidesToShow: 3,
         slidesToScroll: 1,
         autoplay: true,
         autoplaySpeed: 4000,
+        centerMode: feedbacks.length === 1,
         responsive: [
             { breakpoint: 1024, settings: { slidesToShow: 2 } },
             { breakpoint: 600, settings: { slidesToShow: 1 } }
@@ -222,37 +231,52 @@ const Home = () => {
                 </div>
             </section>
 
-            <section className="py-20 bg-blue-50">
+            <section className="py-20 bg-blue-50 relative">
                 <div className="max-w-7xl mx-auto px-5">
-                    <h1 className="text-center text-3xl font-bold font-quicksand mb-12">What People <span className="text-blue-600">Think About Us</span></h1>
+                    <div className="flex flex-col md:flex-row justify-between items-center mb-12 gap-6">
+                        <div className="text-center md:text-left">
+                            <h2 className="text-sm font-bold text-blue-600 uppercase tracking-widest mb-2">Testimonials</h2>
+                            <h1 className="text-3xl font-bold font-quicksand">What People <span className="text-blue-600">Think About Us</span></h1>
+                        </div>
+                        
+                        <button 
+                            onClick={() => setIsFeedbackModalOpen(true)}
+                            className="flex items-center gap-2 bg-white text-blue-600 border border-blue-200 px-6 py-3 rounded-full font-bold shadow-sm hover:shadow-md hover:border-blue-600 transition-all active:scale-95"
+                        >
+                            <PenTool size={18} />
+                            Write a Review
+                        </button>
+                    </div>
                     
                     <Slider {...sliderSettings} className="pb-10">
-                        {feedbacks.map((feedback, index) => (
+                        {feedbacks.length > 0 && feedbacks.map((feedback, index) => (
                             <div key={index} className="px-4 py-4">
-                                <div className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 h-[280px] flex flex-col relative">
+                                <div className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 h-[280px] flex flex-col relative border border-gray-100">
                                     <div className="absolute top-6 right-8 opacity-10">
                                         <img src="https://img.icons8.com/ios-filled/50/000000/quote-left.png" alt="quote"/>
                                     </div>
                                     
                                     <div className="flex items-center gap-4 mb-6">
-                                        <img 
-                                            className="w-12 h-12 rounded-full object-cover border-2 border-blue-100" 
-                                            src="https://img.icons8.com/?size=100&id=2zQuuMM0XuM9&format=png&color=000000" 
-                                            alt="avatar"
-                                        />
+                                        <div className="w-12 h-12 rounded-full border-2 border-blue-100 overflow-hidden bg-gray-100 flex items-center justify-center text-xl font-bold text-blue-600">
+                                            {feedback.profilePicture ? <img src={`${feedback.profilePicture}`}/> : feedback.name.charAt(0)}
+                                        </div>
+
                                         <div>
                                             <h4 className="font-bold text-gray-900">{feedback.name}</h4>
                                             <div className="flex text-yellow-400 text-xs">
-                                                <Star fill="currentColor" size={14} />
-                                                <Star fill="currentColor" size={14} />
-                                                <Star fill="currentColor" size={14} />
-                                                <Star fill="currentColor" size={14} />
-                                                <Star fill="currentColor" size={14} />
+                                                {[...Array(5)].map((_, i) => (
+                                                    <Star 
+                                                        key={i} 
+                                                        size={14} 
+                                                        fill={i < (feedback.rating || 5) ? "currentColor" : "none"} 
+                                                        className={i < (feedback.rating || 5) ? "text-yellow-400" : "text-gray-300"}
+                                                    />
+                                                ))}
                                             </div>
                                         </div>
                                     </div>
                                     
-                                    <p className="text-gray-600 italic leading-relaxed flex-grow">
+                                    <p className="text-gray-600 italic leading-relaxed flex-grow text-sm">
                                         "{feedback.comment}"
                                     </p>
                                 </div>
@@ -260,6 +284,12 @@ const Home = () => {
                         ))}
                     </Slider>
                 </div>
+
+                <FeedbackModal 
+                    isOpen={isFeedbackModalOpen} 
+                    onClose={() => setIsFeedbackModalOpen(false)}
+                    onRefresh={refreshFeedbacks}
+                />
             </section>
 
 
@@ -284,7 +314,7 @@ const Home = () => {
 
             <Footer/>
 
-            {isModelShow && clickedProduct &&<ProductDetailsPopUpModel onAddToCart={addToCart} onClose={handleOnClose} product={clickedProduct}/>}
+            {isModelShow && clickedProduct && <ProductDetailsPopUpModel onAddToCart={addToCart} onClose={handleOnClose} product={clickedProduct}/>}
         </div>
     )
 }
