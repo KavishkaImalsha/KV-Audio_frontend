@@ -78,7 +78,7 @@ const AllProducts = () => {
                   />
         </div>) 
         : 
-      (<div className="bg-gray-50 min-h-screen py-10 px-5 md:px-10 font-quicksand">
+      (<div className="bg-gray-50 min-h-screen py-10 px-5 md:px-10 font-quicksand pt-22">
         <div className="mb-8 text-center md:text-left">
           <h1 className="text-3xl font-bold text-gray-800">Rent Audio Gear</h1>
           <p className="text-gray-500 mt-2">Professional equipment for your next event.</p>

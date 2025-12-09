@@ -88,18 +88,13 @@ const NavFeatures = ({ firstName, role }) => {
                         )}
                         
                         <Link 
-                            to="/profile" 
+                            to="/user/profile" 
                             className="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors"
                             onClick={() => setShowModel(false)}
                         >
                             <User size={18} />
                             My Profile
                         </Link>
-
-                        <button className="w-full flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors text-left">
-                            <Settings size={18} />
-                            Settings
-                        </button>
                     </div>
 
                     <div className="border-t border-gray-100 mt-1 pt-1">

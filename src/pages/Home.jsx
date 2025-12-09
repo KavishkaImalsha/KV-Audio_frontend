@@ -34,7 +34,6 @@ const Home = () => {
                 setNewArrivals(newArrivalsRes.data.products || [])
             }
         } catch (error) {
-            console.log(error);
             toast.error(error?.response?.data?.message)
         } finally {
             setLoading(false)
