@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { NavLink,Link, useNavigate } from "react-router-dom";
 import NavFeatures from "./NavBarParts/NavFeatures"
 import { Menu, X } from "lucide-react"
+import companyLogo from "../assets/company_logo.png"
 
 const NavBar = () => {
     const [isLoged, setIsLoged] = useState(false)
@@ -33,7 +34,7 @@ const NavBar = () => {
                     <div className="flex-shrink-0 flex items-center gap-2 cursor-pointer"
                         onClick={() => {navigate('/')}}
                     >
-                        <img src="company_logo.png" alt="Logo" className="w-[90px] h-[80px] object-contain" />
+                        <img src={companyLogo} alt="Logo" className="w-[90px] h-[80px] object-contain" />
                         <span className="text-white font-bold text-xl font-quicksand tracking-wider hidden sm:block">
                             AUDIO<span className="text-blue-600">PRO</span>
                         </span>
