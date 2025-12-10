@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import { User, Mail, Phone, MapPin, Camera, Save, X, LogOut, Package, Shield } from "lucide-react";
+import { User, Mail, Phone, MapPin, Camera, Save, X, LogOut, Package, Shield, MessageCircle } from "lucide-react";
 import Footer from "../../components/Footer";
 import BackendApi from "../../api/BackendApi";
 
@@ -109,7 +109,11 @@ const Profile = () => {
                 {userData.role === 'customer' && (
                     <button onClick={() => navigate('/user/orders')} className="w-full flex items-center justify-between p-3 rounded-lg hover:bg-blue-50 text-gray-600 hover:text-blue-600 transition-all">
                     <span className="flex items-center gap-3"><Package size={20}/> My Orders</span>
-                    <span className="bg-gray-100 text-gray-600 text-xs font-bold px-2 py-1 rounded-full">3</span>
+                    </button>
+                )}
+                {userData.role === 'customer' && (
+                    <button onClick={() => navigate('/user/inqueries')} className="w-full flex items-center justify-between p-3 rounded-lg hover:bg-blue-50 text-gray-600 hover:text-blue-600 transition-all">
+                    <span className="flex items-center gap-3"><MessageCircle size={20}/> Inqueries</span>
                     </button>
                 )}
                 <button className="w-full flex items-center justify-between p-3 rounded-lg bg-blue-50 text-blue-600 font-semibold">
