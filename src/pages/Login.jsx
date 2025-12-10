@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom"
 import axios from "axios"
 import { toast } from "react-hot-toast"
 import handleInputData from "../actions/handleInputData"
+import companyLogo from "../assets/company_logo.png"
 
 const Login = () => {
     const [userData, setUserData] = useState({email: "", password: ""})
@@ -45,7 +46,7 @@ const Login = () => {
                 <div className="flex justify-center items-center cursor-pointer"
                     onClick={() => {navigate('/')}}
                 >
-                    <img src="company_logo.png" className="w-45 h-45"/>
+                    <img src={companyLogo} className="w-45 h-45"/>
                 </div>
                 <h1 className="font-medium text-center"><span className="font-bold text-3xl text-blue-600">Login</span> to your account.</h1>
                 
