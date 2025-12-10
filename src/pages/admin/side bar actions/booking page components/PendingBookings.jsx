@@ -4,9 +4,6 @@ import Swal from 'sweetalert2'
 import { Check, Trash2, Box, User, CreditCard } from "lucide-react";
 
 const PendingBookings = ({ orders, refreshTrigger }) => {
-    console.log(orders);
-    
-
     const approvalOrder = async(orderId) => {
         try {
             const response = await BackendApi.put(`orders/${orderId}`);
