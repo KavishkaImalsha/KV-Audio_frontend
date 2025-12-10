@@ -6,6 +6,7 @@ import UpdateItemModel from '../../components/admin/UpdateItemModel.jsx'
 import Bookings from './side bar actions/Bookings.jsx'
 import Users from './side bar actions/Users.jsx'
 import Inquiries from './side bar actions/Inquiries.jsx'
+import AdminFeedback from './side bar actions/AdminFeedback.jsx'
 const AdminDashboard = () => {
     return(
         <>
@@ -19,6 +20,7 @@ const AdminDashboard = () => {
                   <Route path='/bookings/*' element={<Bookings/>}/>
                   <Route path='/users' element={<Users/>}/>
                   <Route path='/inquiries' element={<Inquiries/>}/>
+                  <Route path='/feedbacks' element={<AdminFeedback/>}/>
               </Routes>
             </div>
           </div>
