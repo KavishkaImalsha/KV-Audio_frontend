@@ -1,5 +1,5 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { LayoutDashboard, Speaker, CalendarCheck, Users, LogOut, MessageCircle } from "lucide-react";
+import { LayoutDashboard, Speaker, CalendarCheck, Users, LogOut, MessageCircle, MessageSquareHeart  } from "lucide-react";
 
 const AdminSideBar = () => {
     const location = useLocation();
@@ -11,6 +11,7 @@ const AdminSideBar = () => {
         { path: "/admin/bookings", name: "Bookings", icon: <CalendarCheck size={20} /> },
         { path: "/admin/users", name: "Customers", icon: <Users size={20} /> },
         { path: "/admin/inquiries", name: "Inquiries", icon: <MessageCircle size={20} /> },
+        { path: "/admin/feedbacks", name: "Feedbacks", icon: <MessageSquareHeart size={20} /> },
     ];
 
     const handleLogout = () => {
