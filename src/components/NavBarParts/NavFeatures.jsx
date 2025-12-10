@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom"
 import profilePic from "../../assets/profilePic.jpg"
 import { useContext, useEffect, useRef, useState } from "react"
-import { ShoppingCart, User, Package, Settings, LogOut, ChevronDown } from "lucide-react"
+import { ShoppingCart, User, Package, LayoutDashboard , LogOut, ChevronDown } from "lucide-react"
 import CartContext from "../../context/CartContext.jsx"
 
 const NavFeatures = ({ firstName, role }) => {
@@ -84,6 +84,17 @@ const NavFeatures = ({ firstName, role }) => {
                             >
                                 <Package size={18} />
                                 My Orders
+                            </Link>
+                        )}
+
+                        {role === 'admin' && (
+                            <Link 
+                                to="/admin/dashboard" 
+                                className="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                                onClick={() => setShowModel(false)}
+                            >
+                                <LayoutDashboard size={18} />
+                                Dashboard
                             </Link>
                         )}
                         
