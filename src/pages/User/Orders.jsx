@@ -2,7 +2,6 @@ import { useEffect, useState } from "react"
 import customApi from "../../api/BackendApi"
 import {toast} from "react-hot-toast"
 import GridLoader from "react-spinners/GridLoader"
-import Product from "../../../../Audio Shop Project Backend/model/Product"
 import OrderOverview from "./OrderOverview"
 
 const Orders = () => {
