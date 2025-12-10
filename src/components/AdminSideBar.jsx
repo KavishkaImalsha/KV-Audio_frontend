@@ -1,16 +1,16 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { LayoutDashboard, Speaker, CalendarCheck, Users, LogOut, Settings } from "lucide-react";
+import { LayoutDashboard, Speaker, CalendarCheck, Users, LogOut, MessageCircle } from "lucide-react";
 
 const AdminSideBar = () => {
     const location = useLocation();
     const navigate = useNavigate();
 
-    // Define links in an array for cleaner code
     const menuItems = [
         { path: "/admin/dashboard", name: "Dashboard", icon: <LayoutDashboard size={20} /> },
         { path: "/admin/items", name: "Inventory", icon: <Speaker size={20} /> },
         { path: "/admin/bookings", name: "Bookings", icon: <CalendarCheck size={20} /> },
         { path: "/admin/users", name: "Customers", icon: <Users size={20} /> },
+        { path: "/admin/inquiries", name: "Inquiries", icon: <MessageCircle size={20} /> },
     ];
 
     const handleLogout = () => {
@@ -20,8 +20,6 @@ const AdminSideBar = () => {
 
     return (
         <aside className="fixed top-0 left-0 z-40 w-64 h-screen bg-white border-r border-gray-100 font-quicksand flex flex-col justify-between shadow-xl shadow-blue-900/5">
-            
-            {/* 1. BRAND LOGO SECTION */}
             <div>
                 <div className="h-20 flex items-center px-8 border-b border-gray-50">
                     <h1 className="text-xl font-bold text-gray-800 tracking-wide">
@@ -30,7 +28,6 @@ const AdminSideBar = () => {
                     </h1>
                 </div>
 
-                {/* 2. NAVIGATION LINKS */}
                 <div className="px-4 py-6 space-y-1">
                     <p className="px-4 text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Main Menu</p>
                     
@@ -50,8 +47,6 @@ const AdminSideBar = () => {
                                     {item.icon}
                                 </span>
                                 {item.name}
-                                
-                                {/* Active Indicator Dot */}
                                 {isActive && <div className="ml-auto w-1.5 h-1.5 rounded-full bg-blue-600"></div>}
                             </Link>
                         )
@@ -59,7 +54,6 @@ const AdminSideBar = () => {
                 </div>
             </div>
 
-            {/* 3. FOOTER / LOGOUT SECTION */}
             <div className="p-4 border-t border-gray-50">
                 <button 
                     onClick={handleLogout}

@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom"
 import profilePic from "../../assets/profilePic.jpg"
 import { useContext, useEffect, useRef, useState } from "react"
-import { ShoppingCart, User, Package, Settings, LogOut, ChevronDown } from "lucide-react"
+import { ShoppingCart, User, Package, LayoutDashboard , LogOut, ChevronDown, MessageCircle } from "lucide-react"
 import CartContext from "../../context/CartContext.jsx"
 
 const NavFeatures = ({ firstName, role }) => {
@@ -86,9 +86,31 @@ const NavFeatures = ({ firstName, role }) => {
                                 My Orders
                             </Link>
                         )}
+
+                        {role === 'customer' && (
+                            <Link 
+                                to="/user/inqueries" 
+                                className="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                                onClick={() => setShowModel(false)}
+                            >
+                                <MessageCircle size={18} />
+                                Inqueries
+                            </Link>
+                        )}
+
+                        {role === 'admin' && (
+                            <Link 
+                                to="/admin/dashboard" 
+                                className="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                                onClick={() => setShowModel(false)}
+                            >
+                                <LayoutDashboard size={18} />
+                                Dashboard
+                            </Link>
+                        )}
                         
                         <Link 
-                            to="/user/profile" 
+                            to="/profile" 
                             className="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors"
                             onClick={() => setShowModel(false)}
                         >
